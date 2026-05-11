@@ -20,7 +20,7 @@ export function SocialProofSection() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-          className="mb-20 grid grid-cols-3 gap-8 text-center"
+          className="mb-20 grid grid-cols-1 gap-8 text-center sm:grid-cols-3"
         >
           {socialProofContent.metrics.map((metric) => (
             <motion.div
