@@ -5,7 +5,7 @@ export const siteConfig = {
   tagline: "Launch faster, learn faster",
   description:
     "A simple product that helps teams validate ideas and ship faster with less overhead.",
-  url: "https://example.com",
+  url: "https://startup-landing-demo.vercel.app/",
   logoPath: "/logo.svg",
   contactEmail: "hello@example.com",
 
