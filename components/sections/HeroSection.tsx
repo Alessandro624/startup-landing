@@ -11,11 +11,7 @@ import { heroContent } from "@/data/content";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay },
-  }),
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 export function HeroSection() {
@@ -32,9 +28,8 @@ export function HeroSection() {
 
       <motion.p
         variants={fadeUp}
-        initial="hidden"
+        initial={false}
         animate="visible"
-        custom={0}
         className="mb-4 text-sm font-medium uppercase tracking-widest text-primary"
       >
         Introducing
@@ -43,9 +38,8 @@ export function HeroSection() {
       <motion.h1
         id="hero-headline"
         variants={fadeUp}
-        initial="hidden"
+        initial={false}
         animate="visible"
-        custom={0.1}
         className="mx-auto max-w-4xl text-5xl font-extrabold leading-tight tracking-tight md:text-7xl"
       >
         {heroContent.headline}
@@ -53,9 +47,8 @@ export function HeroSection() {
 
       <motion.p
         variants={fadeUp}
-        initial="hidden"
+        initial={false}
         animate="visible"
-        custom={0.2}
         className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl"
       >
         {heroContent.subheadline}
@@ -63,9 +56,8 @@ export function HeroSection() {
 
       <motion.div
         variants={fadeUp}
-        initial="hidden"
+        initial={false}
         animate="visible"
-        custom={0.3}
         className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
       >
         <Button asChild size="lg" className="gap-2">
@@ -81,9 +73,8 @@ export function HeroSection() {
 
       <motion.div
         variants={fadeUp}
-        initial="hidden"
+        initial={false}
         animate="visible"
-        custom={0.45}
         className="mx-auto mt-16 w-full max-w-4xl overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
         style={{ aspectRatio: "16/9" }}
         aria-label="Product screenshot"
