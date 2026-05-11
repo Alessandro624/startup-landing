@@ -7,6 +7,6 @@ export async function notifyNewSignup(email: string, name?: string) {
     from: process.env.RESEND_FROM_EMAIL!,
     to: process.env.RESEND_NOTIFY_EMAIL!,
     subject: "New waitlist signup",
-    text: `New signup:\nEmail: ${email}\nName: ${name ?? "—"}`,
+    text: `New signup:\nEmail: ${email}\nName: ${name ?? "-"}`,
   });
 }
