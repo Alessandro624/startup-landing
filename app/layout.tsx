@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { siteConfig } from "@/config/site";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "@/styles/globals.css";
 
 // Placeholders: [KEYWORD_1], [KEYWORD_2], [KEYWORD_3]
@@ -64,6 +66,8 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
