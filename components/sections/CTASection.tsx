@@ -83,7 +83,7 @@ export function CTASection() {
                   <p
                     id="email-error"
                     role="alert"
-                    className="mt-1 text-left text-xs text-white/70"
+                    className="mt-1 text-left text-xs text-yellow-300"
                   >
                     {errors.email.message}
                   </p>
@@ -113,7 +113,7 @@ export function CTASection() {
           )}
 
           {serverError && (
-            <p role="alert" className="mt-4 text-sm text-white/70">
+            <p role="alert" className="mt-4 text-sm text-yellow-300">
               {serverError}
             </p>
           )}
