@@ -138,5 +138,6 @@ Server-side env vars must not use the `NEXT_PUBLIC` prefix.
 /data/content.ts       -> All copy
 /lib/validations.ts    -> Zod schemas
 /styles/globals.css    -> Design tokens
+llm.txt                -> Project summary for LLM tools
 proxy.ts               -> Security headers
 ```
