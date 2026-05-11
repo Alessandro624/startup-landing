@@ -7,40 +7,34 @@ const ProblemSection = dynamic(
   () =>
     import("@/components/sections/ProblemSection").then(
       (mod) => mod.ProblemSection
-    ),
-  { ssr: false }
+    )
 );
 const SolutionSection = dynamic(
   () =>
     import("@/components/sections/SolutionSection").then(
       (mod) => mod.SolutionSection
-    ),
-  { ssr: false }
+    )
 );
 const FeaturesSection = dynamic(
   () =>
     import("@/components/sections/FeaturesSection").then(
       (mod) => mod.FeaturesSection
-    ),
-  { ssr: false }
+    )
 );
 const SocialProofSection = dynamic(
   () =>
     import("@/components/sections/SocialProofSection").then(
       (mod) => mod.SocialProofSection
-    ),
-  { ssr: false }
+    )
 );
 const TeamSection = dynamic(
   () =>
     import("@/components/sections/TeamSection").then(
       (mod) => mod.TeamSection
-    ),
-  { ssr: false }
+    )
 );
 const CTASection = dynamic(
-  () => import("@/components/sections/CTASection").then((mod) => mod.CTASection),
-  { ssr: false }
+  () => import("@/components/sections/CTASection").then((mod) => mod.CTASection)
 );
 
 export default function HomePage() {
