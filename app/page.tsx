@@ -1,12 +1,47 @@
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ProblemSection } from "@/components/sections/ProblemSection";
-import { SolutionSection } from "@/components/sections/SolutionSection";
-import { FeaturesSection } from "@/components/sections/FeaturesSection";
-import { SocialProofSection } from "@/components/sections/SocialProofSection";
-import { TeamSection } from "@/components/sections/TeamSection";
-import { CTASection } from "@/components/sections/CTASection";
 import { Footer } from "@/components/layout/Footer";
+
+const ProblemSection = dynamic(
+  () =>
+    import("@/components/sections/ProblemSection").then(
+      (mod) => mod.ProblemSection
+    ),
+  { ssr: false }
+);
+const SolutionSection = dynamic(
+  () =>
+    import("@/components/sections/SolutionSection").then(
+      (mod) => mod.SolutionSection
+    ),
+  { ssr: false }
+);
+const FeaturesSection = dynamic(
+  () =>
+    import("@/components/sections/FeaturesSection").then(
+      (mod) => mod.FeaturesSection
+    ),
+  { ssr: false }
+);
+const SocialProofSection = dynamic(
+  () =>
+    import("@/components/sections/SocialProofSection").then(
+      (mod) => mod.SocialProofSection
+    ),
+  { ssr: false }
+);
+const TeamSection = dynamic(
+  () =>
+    import("@/components/sections/TeamSection").then(
+      (mod) => mod.TeamSection
+    ),
+  { ssr: false }
+);
+const CTASection = dynamic(
+  () => import("@/components/sections/CTASection").then((mod) => mod.CTASection),
+  { ssr: false }
+);
 
 export default function HomePage() {
   return (
