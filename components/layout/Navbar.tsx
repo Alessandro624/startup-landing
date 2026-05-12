@@ -9,18 +9,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 
-const navLinks = [
-  { label: "Problem", hash: "#problem" },
-  { label: "Solution", hash: "#solution" },
-  { label: "Features", hash: "#features" },
-  { label: "Team", hash: "#team" },
-];
+type NavbarProps = {
+  showSectionLinks?: boolean;
+};
 
-export function Navbar() {
+export function Navbar({ showSectionLinks = true }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const basePath = pathname === "/" ? "" : "/";
   const ctaHref = `${basePath}#cta`;
+
+  const navLinks = [
+    siteConfig.sections.problem && { label: "Problem", hash: "#problem" },
+    siteConfig.sections.solution && { label: "Solution", hash: "#solution" },
+    siteConfig.sections.features && { label: "Features", hash: "#features" },
+    siteConfig.sections.team && { label: "Team", hash: "#team" },
+  ].filter(Boolean) as { label: string; hash: string }[];
 
   return (
     <header
@@ -48,18 +52,20 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex" role="list">
-          {navLinks.map((link) => (
-            <li key={link.hash}>
-              <Link
-                href={`${basePath}${link.hash}`}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {showSectionLinks && navLinks.length > 0 && (
+          <ul className="hidden items-center gap-8 md:flex" role="list">
+            {navLinks.map((link) => (
+              <li key={link.hash}>
+                <Link
+                  href={`${basePath}${link.hash}`}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="hidden md:flex">
           <Button asChild size="sm">
@@ -87,17 +93,18 @@ export function Navbar() {
             className="overflow-hidden border-b border-border bg-background md:hidden"
           >
             <ul className="flex flex-col gap-4 px-6 py-4" role="list">
-              {navLinks.map((link) => (
-                <li key={link.hash}>
-                  <Link
-                    href={`${basePath}${link.hash}`}
-                    className="block text-sm font-medium"
-                    onClick={() => setOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {showSectionLinks &&
+                navLinks.map((link) => (
+                  <li key={link.hash}>
+                    <Link
+                      href={`${basePath}${link.hash}`}
+                      className="block text-sm font-medium"
+                      onClick={() => setOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               <li>
                 <Button asChild className="w-full">
                   <Link href={ctaHref} onClick={() => setOpen(false)}>
