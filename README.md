@@ -99,9 +99,29 @@ Important: `siteConfig.url` must be a valid URL or the build will fail.
 
 ---
 
+## Section toggles
+
+Enable or disable sections in `config/site.ts` under `sections`.
+
+---
+
+## Analytics (optional)
+
+Set any of these env vars to enable their scripts in `app/layout.tsx`:
+
+- `NEXT_PUBLIC_GA_ID`
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_META_PIXEL_ID`
+
+---
+
 ## Waitlist API
 
 `POST /api/waitlist` validates input with Zod. Connect your database or email provider (Resend, Loops, etc.).
+
+## Supabase schema
+
+Run the SQL in `supabase/schema.sql` inside the Supabase SQL editor.
 
 ---
 
@@ -138,6 +158,7 @@ Server-side env vars must not use the `NEXT_PUBLIC` prefix.
 /data/content.ts       -> All copy
 /lib/validations.ts    -> Zod schemas
 /styles/globals.css    -> Design tokens
+/supabase/schema.sql   -> Supabase table schema
 llm.txt                -> Project summary for LLM tools
 proxy.ts               -> Security headers
 ```
