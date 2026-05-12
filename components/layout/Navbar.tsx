@@ -3,20 +3,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "Features", href: "#features" },
-  { label: "Team", href: "#team" },
+  { label: "Problem", hash: "#problem" },
+  { label: "Solution", hash: "#solution" },
+  { label: "Features", hash: "#features" },
+  { label: "Team", hash: "#team" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const basePath = pathname === "/" ? "" : "/";
+  const ctaHref = `${basePath}#cta`;
 
   return (
     <header
@@ -46,9 +50,9 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-8 md:flex" role="list">
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.hash}>
               <Link
-                href={link.href}
+                href={`${basePath}${link.hash}`}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -59,7 +63,7 @@ export function Navbar() {
 
         <div className="hidden md:flex">
           <Button asChild size="sm">
-            <Link href="#cta">Get early access</Link>
+            <Link href={ctaHref}>Get early access</Link>
           </Button>
         </div>
 
@@ -84,9 +88,9 @@ export function Navbar() {
           >
             <ul className="flex flex-col gap-4 px-6 py-4" role="list">
               {navLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.hash}>
                   <Link
-                    href={link.href}
+                    href={`${basePath}${link.hash}`}
                     className="block text-sm font-medium"
                     onClick={() => setOpen(false)}
                   >
@@ -96,7 +100,7 @@ export function Navbar() {
               ))}
               <li>
                 <Button asChild className="w-full">
-                  <Link href="#cta" onClick={() => setOpen(false)}>
+                  <Link href={ctaHref} onClick={() => setOpen(false)}>
                     Get early access
                   </Link>
                 </Button>
