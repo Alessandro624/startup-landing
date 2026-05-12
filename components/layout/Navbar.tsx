@@ -11,12 +11,14 @@ import { Button } from "@/components/ui/button";
 
 type NavbarProps = {
   showSectionLinks?: boolean;
+  showCta?: boolean;
 };
 
-export function Navbar({ showSectionLinks = true }: NavbarProps) {
+export function Navbar({ showSectionLinks = true, showCta = true }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const basePath = pathname === "/" ? "" : "/";
+  const showCtaButton = showCta && siteConfig.sections.cta;
   const ctaHref = `${basePath}#cta`;
 
   const navLinks = [
@@ -25,6 +27,8 @@ export function Navbar({ showSectionLinks = true }: NavbarProps) {
     siteConfig.sections.features && { label: "Features", hash: "#features" },
     siteConfig.sections.team && { label: "Team", hash: "#team" },
   ].filter(Boolean) as { label: string; hash: string }[];
+
+  const showMobileMenu = (showSectionLinks && navLinks.length > 0) || showCtaButton;
 
   return (
     <header
@@ -67,24 +71,28 @@ export function Navbar({ showSectionLinks = true }: NavbarProps) {
           </ul>
         )}
 
-        <div className="hidden md:flex">
-          <Button asChild size="sm">
-            <Link href={ctaHref}>Get early access</Link>
-          </Button>
-        </div>
+        {showCtaButton && (
+          <div className="hidden md:flex">
+            <Button asChild size="sm">
+              <Link href={ctaHref}>Get early access</Link>
+            </Button>
+          </div>
+        )}
 
-        <button
-          className="md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {showMobileMenu && (
+          <button
+            className="md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        )}
       </nav>
 
       <AnimatePresence>
-        {open && (
+        {showMobileMenu && open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -105,13 +113,15 @@ export function Navbar({ showSectionLinks = true }: NavbarProps) {
                     </Link>
                   </li>
                 ))}
-              <li>
-                <Button asChild className="w-full">
-                  <Link href={ctaHref} onClick={() => setOpen(false)}>
-                    Get early access
-                  </Link>
-                </Button>
-              </li>
+              {showCtaButton && (
+                <li>
+                  <Button asChild className="w-full">
+                    <Link href={ctaHref} onClick={() => setOpen(false)}>
+                      Get early access
+                    </Link>
+                  </Button>
+                </li>
+              )}
             </ul>
           </motion.div>
         )}
