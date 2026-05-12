@@ -64,16 +64,19 @@ Replace `<YOUR_REPO_URL>` with your GitHub repo URL to enable 1-click deploy.
 # 1. Install
 npm install
 
-# 2. Configure env
+# 2. Guided setup (optional)
+npm run setup
+
+# 3. Configure env
 cp .env.example .env.local
 
-# 3. Dev server
+# 4. Dev server
 npm run dev
 
-# 4. Type check
+# 5. Type check
 npm run type-check
 
-# 5. Production build
+# 6. Production build
 npm run build
 ```
 
