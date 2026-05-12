@@ -19,8 +19,17 @@ export const siteConfig = {
   },
 
   analytics: {
-    gaId: process.env.NEXT_PUBLIC_GA_ID ?? "G-XXXXXXXX",
-    posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "phc_XXXXXXXX",
-    metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "000000000000000",
+    gaId: process.env.NEXT_PUBLIC_GA_ID,
+    posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID,
+  },
+  sections: {
+    hero: true,
+    problem: true,
+    solution: true,
+    features: true,
+    socialProof: true,
+    team: true,
+    cta: true,
   },
 } as const;

@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Footer } from "@/components/layout/Footer";
+import { siteConfig } from "@/config/site";
 
 const ProblemSection = dynamic(
   () =>
@@ -38,17 +39,19 @@ const CTASection = dynamic(
 );
 
 export default function HomePage() {
+  const { sections } = siteConfig;
+
   return (
     <>
       <Navbar />
       <main id="main-content">
-        <HeroSection />
-        <ProblemSection />
-        <SolutionSection />
-        <FeaturesSection />
-        <SocialProofSection />
-        <TeamSection />
-        <CTASection />
+        {sections.hero && <HeroSection />}
+        {sections.problem && <ProblemSection />}
+        {sections.solution && <SolutionSection />}
+        {sections.features && <FeaturesSection />}
+        {sections.socialProof && <SocialProofSection />}
+        {sections.team && <TeamSection />}
+        {sections.cta && <CTASection />}
       </main>
       <Footer />
     </>
