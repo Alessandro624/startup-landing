@@ -52,17 +52,21 @@ A clean landing page template for startups. Replace placeholders, deploy, done.
 
 ## Demo (Vercel)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=<YOUR_REPO_URL>)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAlessandro624%2Fstartup-landing)
 
-Replace `<YOUR_REPO_URL>` with your GitHub repo URL to enable 1-click deploy.
+The button clones this template. Configure the server-side environment variables before enabling waitlist signups.
 
 ---
 
 ## Quick start
 
+Requires Node.js 22.18+ and npm. The landing page can render without service
+credentials. API requests fail closed with HTTP 503 until rate limiting and
+storage are configured.
+
 ```bash
 # 1. Install
-npm install
+npm ci
 
 # 2. Guided setup (optional)
 npm run setup
