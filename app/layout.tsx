@@ -93,8 +93,8 @@ export default function RootLayout({
           </Script>
         )}
         {children}
-        <Analytics />
-        <SpeedInsights />
+        {process.env.VERCEL === "1" && <Analytics />}
+        {process.env.VERCEL === "1" && <SpeedInsights />}
       </body>
     </html>
   );
