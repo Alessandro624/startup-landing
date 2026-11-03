@@ -4,13 +4,13 @@ import { checkRateLimit } from "@/lib/rate-limit";
 
 const CSP = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://app.posthog.com https://connect.facebook.net https://va.vercel-scripts.com",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self'",
     "frame-src 'none'",
     "form-action 'self'",
-    "connect-src 'self' https://www.google-analytics.com https://region1.posthog.com",
+    "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://app.posthog.com https://region1.posthog.com https://www.facebook.com https://vitals.vercel-insights.com",
     "object-src 'none'",
     process.env.NODE_ENV === "production" ? "upgrade-insecure-requests" : "",
 ]
@@ -21,7 +21,12 @@ export async function proxy(request: NextRequest) {
     // Rate limit all /api/* routes
     if (request.nextUrl.pathname.startsWith("/api/")) {
         const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anonymous";
-        const allowed = await checkRateLimit(ip);
+        let allowed;
+        try {
+            allowed = await checkRateLimit(ip);
+        } catch {
+            return NextResponse.json({ error: "API temporarily unavailable" }, { status: 503 });
+        }
         if (!allowed) {
             return NextResponse.json({ error: "Too many requests" }, { status: 429 });
         }

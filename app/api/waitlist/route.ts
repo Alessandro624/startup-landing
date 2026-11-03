@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { waitlistSchema } from "@/lib/validations";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { notifyNewSignup } from "@/lib/resend";
+import { saveSignup } from "@/lib/signup";
 
 export async function POST(req: NextRequest) {
+  let body: unknown;
   try {
-    const body = await req.json();
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+  try {
 
     // Server-side validation (never trust client)
     const parsed = waitlistSchema.safeParse(body);
@@ -16,25 +22,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { email, name } = parsed.data;
-
-    // Idempotent insert - ignore duplicate emails
-    const { error } = await supabase
-      .from("waitlist")
-      .insert({ email, name })
-      .select()
-      .single();
-
-    if (error && error.code !== "23505") {
-      // 23505 = unique_violation (email already exists) - not an error for us
-      throw error;
-    }
-
-    // Notify founder via email (fire-and-forget - don't fail the request if this errors)
-    notifyNewSignup(email, name).catch(console.error);
+    const supabase = getSupabase();
+    await saveSignup(
+      parsed.data,
+      (signup) => supabase.from("waitlist").insert(signup),
+      notifyNewSignup,
+      () => console.error("Waitlist signup saved, but notification was not delivered"),
+    );
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ error: "Waitlist temporarily unavailable" }, { status: 503 });
   }
 }
